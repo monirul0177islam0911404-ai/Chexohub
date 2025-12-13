@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BanglaHub Player</title>
+<style>
+body{margin:0;background:#000;color:#fff;font-family:Arial}
+.ad-container{text-align:center;margin:10px 0}
+.wrap{max-width:900px;margin:auto;padding:10px}
+iframe,video{width:100%;height:520px;border:none}
+.btns{display:flex;gap:10px;margin:12px 0}
+.btn{
+ flex:1;text-align:center;padding:12px;
+ border-radius:8px;font-weight:800;
+ text-decoration:none
+}
+.real{background:#00c853;color:#002}
+.promo{background:#ffb400;color:#000}
+</style>
+</head>
+
+<body>
+
+<!-- 🔼 BANNER -->
+<div class="ad-container">
+<script type="text/javascript">
+atOptions={'key':'30921df49dc35be6701cc3d7f8ca8108','format':'iframe','height':50,'width':320,'params':{}};
+</script>
+<script src="//www.highperformanceformat.com/30921df49dc35be6701cc3d7f8ca8108/invoke.js"></script>
+</div>
+
+<div class="wrap">
+<div id="player"></div>
+
+<div class="btns">
+<a id="real" class="btn real" target="_blank">⬇️ Download Video</a>
+<a id="promo" class="btn promo" target="_blank">🔗 Download Link</a>
+</div>
+</div>
+
+<!-- 🔽 NATIVE -->
+<div class="ad-container">
+<script async data-cfasync="false" src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"></script>
+<div id="container-e1682f5b5155c961011e82faea551290"></div>
+</div>
+
+<!-- 🔽 POPUNDER -->
+<script src="//pl27901237.effectivegatecpm.com/9c/2d/9c/9c2d9cea847e545127aaf16aa663473f.js"></script>
+
+<script>
+const p=new URLSearchParams(location.search);
+const src=p.get('src');
+document.getElementById('real').href=p.get('download');
+document.getElementById('promo').href=p.get('promo');
+
+if(src.includes('drive.google.com')){
+ const id=src.match(/\/d\/([^\/]+)/)?.[1];
+ document.getElementById('player').innerHTML=
+ `<iframe src="https://drive.google.com/file/d/${id}/preview" allowfullscreen></iframe>`;
+}else{
+ document.getElementById('player').innerHTML=
+ `<video controls autoplay src="${src}"></video>`;
+}
+</script>
+
+</body>
+</html>
