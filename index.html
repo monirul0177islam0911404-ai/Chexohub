@@ -9,6 +9,7 @@
 :root{
   --bg:#061416;
   --card:#0f2628;
+  --active:#00c2ff;
 }
 *{box-sizing:border-box}
 body{
@@ -49,6 +50,10 @@ header{
   background:#123;
   color:#fff;
   cursor:pointer;
+}
+.categories button.active{
+  background:var(--active);
+  color:#002;
 }
 
 /* grid */
@@ -122,14 +127,14 @@ a{text-decoration:none;color:inherit}
   <a class="join" href="https://t.me/DSSvdo" target="_blank">Join Us</a>
 </header>
 
-<div class="categories">
-<button onclick="filterCat('trending')">Trending</button>
-<button onclick="filterCat('bangla family')">Bangla Family</button>
-<button onclick="filterCat('bangla hardscore')">Bangla Hardscore</button>
-<button onclick="filterCat('মা-ছেলে')">মা-ছেলে</button>
-<button onclick="filterCat('ভাই-বোন')">ভাই-বোন</button>
-<button onclick="filterCat('movie')">Movie</button>
-<button onclick="filterCat('others')">Others</button>
+<div class="categories" id="catBar">
+  <button class="active" onclick="filterCat('all',this)">Trending</button>
+  <button onclick="filterCat('bangla family',this)">Bangla Family</button>
+  <button onclick="filterCat('bangla hardscore',this)">Bangla Hardscore</button>
+  <button onclick="filterCat('মা-ছেলে',this)">মা-ছেলে</button>
+  <button onclick="filterCat('ভাই-বোন',this)">ভাই-বোন</button>
+  <button onclick="filterCat('movie',this)">Movie</button>
+  <button onclick="filterCat('others',this)">Others</button>
 </div>
 
 <div id="grid" class="grid"></div>
@@ -142,32 +147,26 @@ a{text-decoration:none;color:inherit}
 <!-- 🔽 NATIVE AD -->
 <div class="ads">
 <script async data-cfasync="false"
-src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js">
-</script>
+src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"></script>
 <div id="container-e1682f5b5155c961011e82faea551290"></div>
 </div>
 
 <script>
 let allVideos = [];
 
-fetch('videos.json', {cache:'no-store'})
-  .then(res => res.json())
-  .then(data => {
-    allVideos = data;
-    render(allVideos);
-  })
-  .catch(err => {
-    document.getElementById('grid').innerHTML =
-      '<div style="padding:20px;color:#ccc">Video load error</div>';
-    console.error(err);
-  });
+fetch('./videos.json')
+.then(res=>res.json())
+.then(data=>{
+  allVideos=data;
+  render(allVideos);
+});
 
 function render(list){
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
+  const grid=document.getElementById('grid');
+  grid.innerHTML='';
   list.forEach(v=>{
-    grid.innerHTML += `
-    <a href="video.html?src=${encodeURIComponent(v.video_url)}&dl=${encodeURIComponent(v.download_url)}&ad=${encodeURIComponent(v.promo_url)}">
+    grid.innerHTML+=`
+    <a href="video.html?src=${encodeURIComponent(v.video_url)}&dl=${encodeURIComponent(v.download_url)}&hd=${encodeURIComponent(v.download_hd||'')}">
       <div class="card">
         <div class="thumb">
           <img src="${v.thumb}">
@@ -185,10 +184,18 @@ function render(list){
   });
 }
 
-function filterCat(cat){
-  render(allVideos.filter(v => v.category === cat));
+function filterCat(cat,btn){
+  document.querySelectorAll('.categories button')
+    .forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+
+  if(cat==='all'){
+    render(allVideos);
+  }else{
+    render(allVideos.filter(v=>v.category===cat));
+  }
 }
 </script>
 
 </body>
-  </html>
+</html>
