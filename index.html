@@ -34,6 +34,7 @@ header{
   color:#002;
 }
 
+/* categories */
 .categories{
   display:flex;
   flex-wrap:wrap;
@@ -50,6 +51,7 @@ header{
   cursor:pointer;
 }
 
+/* grid */
 .grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -57,6 +59,7 @@ header{
   padding:12px;
 }
 
+/* card */
 .card{
   background:var(--card);
   border-radius:10px;
@@ -85,9 +88,7 @@ header{
 .views{left:6px;bottom:6px}
 .duration{right:6px;bottom:6px}
 
-.info{
-  padding:8px;
-}
+.info{padding:8px}
 .title{
   font-size:14px;
   font-weight:700;
@@ -106,6 +107,7 @@ header{
   font-size:12px;
   color:#fff;
 }
+
 a{text-decoration:none;color:inherit}
 
 /* ads */
@@ -121,7 +123,7 @@ a{text-decoration:none;color:inherit}
 </header>
 
 <div class="categories">
-<button onclick="filterCat('all')">Trending</button>
+<button onclick="filterCat('trending')">Trending</button>
 <button onclick="filterCat('bangla family')">Bangla Family</button>
 <button onclick="filterCat('bangla hardscore')">Bangla Hardscore</button>
 <button onclick="filterCat('মা-ছেলে')">মা-ছেলে</button>
@@ -146,39 +148,47 @@ src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.j
 </div>
 
 <script>
-let all=[];
+let allVideos = [];
 
-fetch('videos.json',{cache:'no-store'})
-.then(r=>r.json())
-.then(d=>{all=d;render(d)});
+fetch('videos.json', {cache:'no-store'})
+  .then(res => res.json())
+  .then(data => {
+    allVideos = data;
+    render(allVideos);
+  })
+  .catch(err => {
+    document.getElementById('grid').innerHTML =
+      '<div style="padding:20px;color:#ccc">Video load error</div>';
+    console.error(err);
+  });
 
 function render(list){
-  grid.innerHTML='';
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
   list.forEach(v=>{
-    grid.innerHTML+=`
+    grid.innerHTML += `
     <a href="video.html?src=${encodeURIComponent(v.video_url)}&dl=${encodeURIComponent(v.download_url)}&ad=${encodeURIComponent(v.promo_url)}">
-    <div class="card">
-      <div class="thumb">
-        <img src="${v.thumb}">
-        <div class="badge views">👁 ${v.views}</div>
-        <div class="badge duration">⏱ ${v.duration}</div>
-      </div>
-      <div class="info">
-        <div class="title">${v.title}</div>
-        <div class="meta">
-          <div class="like">👍 ${v.likes}</div>
+      <div class="card">
+        <div class="thumb">
+          <img src="${v.thumb}">
+          <div class="badge views">👁 ${v.views}</div>
+          <div class="badge duration">⏱ ${v.duration}</div>
+        </div>
+        <div class="info">
+          <div class="title">${v.title}</div>
+          <div class="meta">
+            <div class="like">👍 ${v.likes}</div>
+          </div>
         </div>
       </div>
-    </div>
     </a>`;
   });
 }
 
-function filterCat(c){
-  if(c==='all') render(all);
-  else render(all.filter(v=>v.category===c));
+function filterCat(cat){
+  render(allVideos.filter(v => v.category === cat));
 }
 </script>
 
 </body>
-</html>
+  </html>
