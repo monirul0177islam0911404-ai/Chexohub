@@ -1,106 +1,127 @@
 <!doctype html>
 <html lang="bn">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BanglaHub</title>
 
 <style>
 :root{
-  --bg:#07181a;
-  --card:#0f2a2b;
-  --accent:#00c2ff;
+  --bg:#061416;
+  --card:#0f2628;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:var(--bg);color:#fff}
-
-.header{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:10px 14px;background:#0b3a3b
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:#fff;
+}
+header{
+  padding:12px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#0b3a3b;
 }
 .brand{font-size:20px;font-weight:800}
-.join{background:#00c2ff;color:#002;padding:6px 12px;border-radius:8px;text-decoration:none;font-weight:700}
+.join{
+  text-decoration:none;
+  background:#00c2ff;
+  padding:6px 10px;
+  border-radius:6px;
+  font-weight:700;
+  color:#002;
+}
 
-/* category */
 .categories{
-  display:flex;gap:8px;padding:10px;overflow-x:auto
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:10px;
 }
 .categories button{
-  background:#0f3d40;color:#fff;border:none;
-  padding:8px 14px;border-radius:20px;
-  font-weight:700;cursor:pointer
+  padding:6px 12px;
+  border:none;
+  border-radius:6px;
+  font-weight:700;
+  background:#123;
+  color:#fff;
+  cursor:pointer;
 }
 
-/* grid */
-.container{max-width:1200px;margin:auto;padding:10px}
-.video-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding:12px;
 }
-@media(max-width:1024px){.video-grid{grid-template-columns:repeat(2,1fr)}}
 
 .card{
-  background:var(--card);border-radius:10px;overflow:hidden
+  background:var(--card);
+  border-radius:10px;
+  overflow:hidden;
 }
 .thumb{
-  position:relative;padding-top:100%;background:#000
+  position:relative;
+  width:100%;
+  padding-top:100%;
 }
 .thumb img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 .badge{
-  position:absolute;bottom:8px;padding:5px 8px;
-  background:rgba(0,0,0,.6);border-radius:6px;
-  font-size:13px;font-weight:700;color:#fff
+  position:absolute;
+  background:rgba(0,0,0,.7);
+  padding:4px 6px;
+  font-size:12px;
+  border-radius:6px;
+  color:#fff;
 }
-.views{left:8px}
-.duration{right:8px}
+.views{left:6px;bottom:6px}
+.duration{right:6px;bottom:6px}
 
-.play{
-  position:absolute;left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  width:70px;height:70px;border-radius:50%;
-  background:rgba(0,0,0,.5);
-  display:flex;align-items:center;justify-content:center
+.info{
+  padding:8px;
 }
-.play:after{
-  content:"";border-left:18px solid #fff;
-  border-top:10px solid transparent;
-  border-bottom:10px solid transparent;margin-left:5px
-}
-
-.body{padding:10px}
 .title{
-  color:#fff;font-size:15px;font-weight:700;
-  min-height:42px
+  font-size:14px;
+  font-weight:700;
+  color:#fff;
+  min-height:36px;
+}
+.meta{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:6px;
 }
 .like{
-  margin-top:6px;float:right;
-  background:#184b56;padding:5px 8px;
-  border-radius:6px;font-weight:800;color:#fff
+  background:#134b56;
+  padding:4px 6px;
+  border-radius:6px;
+  font-size:12px;
+  color:#fff;
 }
+a{text-decoration:none;color:inherit}
 
 /* ads */
-.ad-container{text-align:center;margin:10px 0}
+.ads{margin:20px auto;text-align:center}
 </style>
 </head>
 
 <body>
 
-<!-- 🔼 TOP BANNER AD -->
-<div class="ad-container">
-<script type="text/javascript">
-atOptions={'key':'30921df49dc35be6701cc3d7f8ca8108','format':'iframe','height':50,'width':320,'params':{}};
-</script>
-<script src="//www.highperformanceformat.com/30921df49dc35be6701cc3d7f8ca8108/invoke.js"></script>
-</div>
-
-<header class="header">
+<header>
   <div class="brand">BanglaHub</div>
   <a class="join" href="https://t.me/DSSvdo" target="_blank">Join Us</a>
 </header>
 
 <div class="categories">
-<button onclick="filterCat('trending')">Trending</button>
+<button onclick="filterCat('all')">Trending</button>
 <button onclick="filterCat('bangla family')">Bangla Family</button>
 <button onclick="filterCat('bangla hardscore')">Bangla Hardscore</button>
 <button onclick="filterCat('মা-ছেলে')">মা-ছেলে</button>
@@ -109,56 +130,54 @@ atOptions={'key':'30921df49dc35be6701cc3d7f8ca8108','format':'iframe','height':5
 <button onclick="filterCat('others')">Others</button>
 </div>
 
-<main class="container">
-<section id="grid" class="video-grid"></section>
-</main>
+<div id="grid" class="grid"></div>
 
 <!-- 🔽 SOCIAL BAR -->
-<div class="ad-container">
+<div class="ads">
 <script src="//pl27896379.effectivegatecpm.com/a0/33/d0/a033d08e95956fd914684b1fff0b8680.js"></script>
 </div>
 
 <!-- 🔽 NATIVE AD -->
-<div class="ad-container">
-<script async data-cfasync="false" src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js"></script>
+<div class="ads">
+<script async data-cfasync="false"
+src="//pl27967475.effectivegatecpm.com/e1682f5b5155c961011e82faea551290/invoke.js">
+</script>
 <div id="container-e1682f5b5155c961011e82faea551290"></div>
 </div>
 
 <script>
-let allVideos=[];
+let all=[];
 
-async function loadVideos(){
- const r=await fetch('videos.json',{cache:'no-store'});
- allVideos=await r.json();
- render(allVideos);
-}
+fetch('videos.json',{cache:'no-store'})
+.then(r=>r.json())
+.then(d=>{all=d;render(d)});
 
 function render(list){
- const g=document.getElementById('grid'); g.innerHTML='';
- list.forEach(v=>{
-  const a=document.createElement('a');
-  a.href=`video.html?src=${encodeURIComponent(v.video_url)}&download=${encodeURIComponent(v.download_url)}&promo=${encodeURIComponent(v.promo_url)}`;
-  a.style.textDecoration='none';
-
-  a.innerHTML=`
-  <div class="card">
-    <div class="thumb">
-      <img src="${v.thumb}">
-      <div class="play"></div>
-      <div class="badge views">👁 ${v.views}</div>
-      <div class="badge duration">⏱ ${v.duration}</div>
+  grid.innerHTML='';
+  list.forEach(v=>{
+    grid.innerHTML+=`
+    <a href="video.html?src=${encodeURIComponent(v.video_url)}&dl=${encodeURIComponent(v.download_url)}&ad=${encodeURIComponent(v.promo_url)}">
+    <div class="card">
+      <div class="thumb">
+        <img src="${v.thumb}">
+        <div class="badge views">👁 ${v.views}</div>
+        <div class="badge duration">⏱ ${v.duration}</div>
+      </div>
+      <div class="info">
+        <div class="title">${v.title}</div>
+        <div class="meta">
+          <div class="like">👍 ${v.likes}</div>
+        </div>
+      </div>
     </div>
-    <div class="body">
-      <div class="title">${v.title}</div>
-      <div class="like">👍 ${v.likes}</div>
-    </div>
-  </div>`;
-  g.appendChild(a);
- });
+    </a>`;
+  });
 }
 
-function filterCat(c){render(allVideos.filter(v=>v.category===c))}
-loadVideos();
+function filterCat(c){
+  if(c==='all') render(all);
+  else render(all.filter(v=>v.category===c));
+}
 </script>
 
 </body>
